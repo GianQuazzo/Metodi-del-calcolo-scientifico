@@ -1,15 +1,18 @@
 import numpy as np
 from scipy.fftpack import fft, dct, idct
+from numba import jit
 
 """
 dct2 calcolata applicando la dct prima per righe poi per colonne
 """
+@jit
 def dct2(M):
     return dct(dct(M, axis=0, norm='ortho'), axis=1, norm='ortho')
 
 """
 idct2 calcolata applicando la idct prima per righe poi per colonne
 """
+@jit
 def idct2(M):
     return idct(idct(M, axis=0, norm='ortho'), axis=1, norm='ortho')
 
@@ -18,6 +21,7 @@ Fixa i valori che eccedono dal range [0, 255]
 x < 0 : x = 0
 x > 255 : x = 255
 """
+@jit
 def cut_excesses(X):
     X_shape = np.shape(X)
     for i in range(X_shape[0]):
@@ -31,6 +35,7 @@ def cut_excesses(X):
 """
 Ritaglia la matrice rendendo le dimesnioni multiple di k
 """
+@jit
 def resize_matrix(X, k):
     X_shape = np.shape(X)
     n = X_shape[0] - (X_shape[0] % k)
@@ -43,6 +48,7 @@ def resize_matrix(X, k):
 Salva solo gli elementi della matrice X che si trovano al di sopra dell' antidiagonale
 identificata da d; i restanti elementi sono posti a zero
 """
+@jit
 def cut_freq(X, d):
     X_shape = np.shape(X)
     tmp = np.zeros(np.shape(X))
@@ -61,6 +67,7 @@ Input:
     - f: dimensione finestra di lavoro (o dei macroblocchi)
     - d: soglia di taglio delle frequenze
 """
+@jit
 def compress(M, f, d):
     M = resize_matrix(M, f)
     M_shape = np.shape(M)

@@ -1,6 +1,6 @@
 #include "cdct.h"
 
-vector<float> calculate_dct2(const std::vector<int> X, int n, int m) {
+vector<float> calculate_dct2(const vector<int> X, int n, int m) {
     vector<float> C;
 
     float alfa_k, alfa_q;

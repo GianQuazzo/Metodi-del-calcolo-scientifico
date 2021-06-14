@@ -8,13 +8,14 @@ import matplotlib.pyplot as plt
 import time
 import threading
 import numpy as np
+import warnings
 
 window = tk.Tk()
 window.geometry("330x245")
 window.title("Compresser")
 window.resizable(False, False)
 default_font = font.Font(family="Helvetica", size=12)
-
+warnings.filterwarnings('ignore')
 
 """
 Verifica il contenuto del risultato dell'elaborazione dell'immagine contenuto in im_compressed;
@@ -50,7 +51,10 @@ def compress_threading():
     f = int(window_text_input.get())
     d = int(compress_text_input.get())
     im = plt.imread(img_path)
+    start = time.time()
     im_compressed = compress(im, f, d)
+    stop = time.time()
+    print(f"Tempo di esecuzione per la compressione: {stop-start}")
 
 """
 Apre finestra di dialogo per selezionare l'immagine
